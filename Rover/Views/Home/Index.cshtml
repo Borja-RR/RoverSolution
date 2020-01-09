@@ -1,0 +1,90 @@
+﻿@model global::Rover.Models.RoverViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @using (Html.BeginForm("MoveRover", "Home", FormMethod.Post))
+    {
+
+        <div>
+            <a type="text/plain">Plateau size: </a>
+            @Html.TextBoxFor(model => model.PlateauSizeLongitude, new { @type = "number", @min = "0" })
+            @Html.ValidationMessageFor(model => model.PlateauSizeLongitude)
+            @Html.TextBoxFor(model => model.PlateauSizeLatitude, new { @type = "number", @min = "0" })
+            @Html.ValidationMessageFor(model => model.PlateauSizeLatitude)
+        </div>
+
+        <div>
+            <h3 type="text/html">ROVER 1</h3>
+        </div>
+        <div>
+            <a type="text/plain">Initial Position: </a>
+            @Html.TextBoxFor(model => model.Rover1.Position.Longitude, new { @type = "number", @min = "0" })
+            @Html.ValidationMessageFor(model => model.Rover1.Position.Longitude)
+            @Html.TextBoxFor(model => model.Rover1.Position.Latitude, new { @type = "number", @min = "0" })
+            @Html.ValidationMessageFor(model => model.Rover1.Position)
+            @Html.TextBoxFor(model => model.Rover1.Position.Heading, new { @type = "Heading" })
+        </div>
+        <div>
+            <a type="text/plain">Instructions: </a>
+            @Html.TextBoxFor(model => model.Rover1.Instructions)
+        </div>
+
+        <div>
+            <h3 type="text/html">ROVER 2</h3>
+        </div>
+        <div>
+            <a type="text/plain">Initial Position: </a>
+            @Html.TextBoxFor(model => model.Rover2.Position.Longitude, new { @type = "number", @min = "0" })
+            @Html.ValidationMessageFor(model => model.Rover2.Position.Longitude)
+            @Html.TextBoxFor(model => model.Rover2.Position.Latitude, new { @type = "number", @min = "0" })
+            @Html.ValidationMessageFor(model => model.Rover2.Position)
+            @Html.TextBoxFor(model => model.Rover2.Position.Heading, new { @type = "Heading" })
+        </div>
+        <div>
+            <a type="text/plain">Instructions: </a>
+            @Html.TextBoxFor(model => model.Rover2.Instructions)
+        </div>
+
+        <input type="submit" value="Move" name='button' />
+    }
+
+    <div>
+        @if (Model != null)
+        {
+            @if (!string.IsNullOrWhiteSpace(Model.Error))
+            {
+                <div>
+                    <h2 class="text-danger" type="text/plain">ERROR: @Model.Error </h2>
+                </div>
+            }
+            else
+            {
+                @if (Model.Rover1 != null)
+                {
+                    <div>
+                        <a type="text/plain">Rover 1 final Position: </a>
+                        @Html.DisplayFor(model => model.Rover1.Position.Longitude)
+                        @Html.DisplayFor(model => model.Rover1.Position.Latitude)
+                        @Html.DisplayFor(model => model.Rover1.Position.Heading)
+                    </div>
+                }
+                @if (Model.Rover2 != null)
+                {
+                    <div>
+                        <a type="text/plain">Rover 2 final Position: </a>
+                        @Html.DisplayFor(model => model.Rover2.Position.Longitude)
+                        @Html.DisplayFor(model => model.Rover2.Position.Latitude)
+                        @Html.DisplayFor(model => model.Rover2.Position.Heading)
+                    </div>
+                }
+            }
+        }
+    </div>
+
+</div>
+
